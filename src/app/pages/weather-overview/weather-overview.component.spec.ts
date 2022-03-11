@@ -1,9 +1,11 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { MOCKGEODATA, WeatherServiceStub } from 'data/test-stubs';
 import { MockComponent } from 'ng-mocks';
-import { of } from 'rxjs';
+import { of, throwError } from 'rxjs';
 import { WeatherService } from 'src/app/services/weather.service';
 import { WeatherPanelComponent } from 'src/app/shared/components/weather-panel/weather-panel.component';
 import { WeatherOverviewComponent } from './weather-overview.component';
@@ -106,5 +108,33 @@ describe('OverviewComponent', () => {
         });
       });
     });
+  });
+
+  it('should display message on getGeoCode error response', () => {
+    spyOn(weatherServive, 'getGeoCode').and.returnValue(
+      throwError(() => new HttpErrorResponse({ status: 400 }))
+    );
+
+    fixture.detectChanges();
+
+    const errorMessage = fixture.debugElement.query(By.css('h2')).nativeElement;
+
+    expect(errorMessage.innerText).toBe(
+      'Sorry we can not bring you the weather at this time.'
+    );
+  });
+
+  it('should display message on getWeather error response', () => {
+    spyOn(weatherServive, 'getWeather').and.returnValue(
+      throwError(() => new HttpErrorResponse({ status: 400 }))
+    );
+
+    fixture.detectChanges();
+
+    const errorMessage = fixture.debugElement.query(By.css('h2')).nativeElement;
+
+    expect(errorMessage.innerText).toBe(
+      'Sorry we can not bring you the weather at this time.'
+    );
   });
 });

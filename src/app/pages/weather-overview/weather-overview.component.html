@@ -7,7 +7,12 @@
 </section>
 
 <ng-template #other>
-    <h2>
-       {{error ? 'Sorry we can not bring you the weather at this time.' : 'Loading weather...'}}
+    <h2 id="weather-error" *ngIf="error; else loading">
+       Sorry we can not bring you the weather at this time.
     </h2>
+    <ng-template #loading>
+        <h2>
+        'Loading weather...'
+        </h2>
+    </ng-template>
 </ng-template>
