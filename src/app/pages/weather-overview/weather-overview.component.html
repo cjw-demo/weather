@@ -1,0 +1,13 @@
+<h1>World Weather</h1>
+
+<section *ngIf="(weather$ | async); else other">
+    <div class="weather-panel-wrapper">
+        <app-weather-panel *ngFor="let cityWeather of weather$ | async" [cityWeather]="cityWeather"></app-weather-panel>
+    </div>
+</section>
+
+<ng-template #other>
+    <h2>
+       {{error ? 'Sorry we can not bring you the weather at this time.' : 'Loading weather...'}}
+    </h2>
+</ng-template>

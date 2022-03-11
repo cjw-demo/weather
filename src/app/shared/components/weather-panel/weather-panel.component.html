@@ -1,0 +1,13 @@
+<div class="weather-panel">
+    <h3>{{cityWeather?.location}}</h3>
+
+        <div class="weather-panel__flex">
+            <i class="fa-solid fa-temperature-half"></i><p class="weather-panel__text">Temperature:<span>{{cityWeather?.weather?.temp}}&#176;</span></p>
+        </div>
+        <div class="weather-panel__flex">
+            <i class="fa-solid fa-droplet"></i><p class="weather-panel__text">Humidity:<span>{{cityWeather?.weather?.humidity}}%</span></p>
+        </div>
+        <div class="weather-panel__flex">
+            <i class="fa-solid fa-umbrella"></i><p class="weather-panel__text">Chance of rain:<span>{{cityWeather?.weather?.pop}}%</span></p>
+        </div>
+</div>
